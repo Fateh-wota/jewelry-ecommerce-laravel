@@ -1,66 +1,54 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
-// =======================================================
-// 1. ROUTE UTAMA: / (GUEST DASHBOARD)
-// Memastikan halaman root selalu menampilkan view 'guest' (Toko Online).
-// TIDAK ADA cek auth() di sini, sehingga sesi admin/seller tidak memaksa redirect.
-// =======================================================
-Route::get('/', function () {
-    // Memanggil view yang berisi desain toko online (guest.blade.php)
-    return view('guest'); 
-})->name('guest.dashboard'); 
+use App\Http\Controllers\GuestController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Seller\SellerDashboardController; 
+use App\Http\Controllers\Buyer\BuyerDashboardController; 
 
 
-// =======================================================
-// 2. ROUTE /dashboard UNTUK REDIRECT BERDASARKAN ROLE (Setelah Login)
-// Ini adalah route yang dipanggil setelah otentikasi sukses.
-// =======================================================
-Route::get('/dashboard', function () {
-    if (auth()->check()) {
-        $role = auth()->user()->role;
+/* ---------------------------------- */
+/* --------- GUEST/HOME ROUTES -------- */
+/* ---------------------------------- */
+Route::get('/', [GuestController::class, 'index'])->name('home');
 
-        if ($role === 'admin') {
-            // Admin diarahkan ke /admin/dashboard
-            return redirect()->route('admin.dashboard'); 
-        }
-        if ($role === 'seller') {
-            // Seller diarahkan ke /seller/dashboard
-            return redirect()->route('seller.dashboard'); 
-        }
-        
-        // Default: Jika role tidak dikenali (misalnya customer biasa), kembali ke view tamu
-        return view('guest'); 
-    }
-    
-    // Jika entah bagaimana route ini diakses tanpa auth, kembalikan ke root
-    return redirect('/');
-
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Rute Detail Produk (yang sudah kita perbaiki sebelumnya)
+Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show'); 
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.delete');
+/* ---------------------------------- */
+/* ------ AUTH (LOGIN/LOGOUT) ROUTES ----- */
+/* ---------------------------------- */
+
+// Login form hanya bisa diakses oleh tamu (guest)
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
 });
 
-require __DIR__.'/auth.php';
+// Logout
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// =======================================================
-// 3. PEMUATAN ROUTE ADMIN
-// =======================================================
 
-Route::middleware(['web', 'auth']) 
-    ->prefix('admin') 
-    ->name('admin.') 
-    ->group(base_path('routes/admin.php'));
+/* ---------------------------------- */
+/* --------- DASHBOARD ROUTES --------- */
+/* ---------------------------------- */
+Route::middleware(['auth'])->group(function () {
+    
+    // 1. ADMIN DASHBOARD
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    });
 
-// Pemuatan Seller masih dinonaktifkan sementara
-/* Route::middleware(['web', 'auth']) 
-    ->prefix('seller') 
-    ->name('seller.') 
-    ->group(base_path('routes/seller.php'));
-*/
+    // 2. SELLER DASHBOARD
+    Route::prefix('seller')->name('seller.')->group(function () {
+        Route::get('/dashboard', [SellerDashboardController::class, 'index'])->name('dashboard');
+    });
+
+    // 3. BUYER DASHBOARD
+    Route::prefix('user')->name('buyer.')->group(function () {
+        Route::get('/dashboard', [BuyerDashboardController::class, 'index'])->name('dashboard');
+    });
+});

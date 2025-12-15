@@ -13,19 +13,12 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
         $table->id();
-        // Foreign Key ke tabel 'categories'
-        $table->foreignId('category_id')->constrained()->onDelete('cascade'); 
-        // Foreign Key ke tabel 'users' (Role: Seller)
-        $table->foreignId('seller_id')->nullable()->constrained('users')->onDelete('set null'); 
-        
-        $table->string('name');
-        $table->string('slug')->unique();
-        $table->text('description')->nullable();
-        $table->unsignedBigInteger('price');
-        $table->integer('stock')->default(0);
-        $table->string('main_image')->nullable();
-        $table->boolean('is_active')->default(true);
-        
+        $table->string('name'); // Nama produk (misal: Gold Diamond Ring)
+        $table->text('description')->nullable(); // Deskripsi detail
+        $table->decimal('price', 10, 2); // Harga (misal: 10 total digit, 2 desimal)
+        $table->string('image')->nullable(); // Path gambar produk (akan disimpan di storage)
+        $table->string('category'); // Kategori (Rings, Necklaces, Bracelets)
+        $table->boolean('is_featured')->default(false); // Untuk ditampilkan di Featured Collection di Dashboard
         $table->timestamps();
     });
     }

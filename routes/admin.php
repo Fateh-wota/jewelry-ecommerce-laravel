@@ -1,27 +1,24 @@
-<?php 
-// Wajib: Import class Controller yang dibutuhkan
-use App\Http\Controllers\Admin\DashboardController; 
-use App\Http\Controllers\Admin\CategoryController; 
-use Illuminate\Support\Facades\Route; 
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ProductController; // Import Controller yang baru dibuat
 
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
 |--------------------------------------------------------------------------
 |
-| Semua route di file ini otomatis menggunakan:
-| - Prefix: /admin
-| - Name Prefix: admin.
-| - Middleware: ['web', 'auth']
-| karena didefinisikan di routes/web.php
+| Semua route di file ini memiliki prefix 'admin/' dan menggunakan middleware 'auth'.
 |
 */
 
-// Route Dashboard (Contoh: /admin/dashboard)
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
-    
-// Route Resource untuk Category (Contoh: /admin/categories)
-// Ini akan membuat 7 route sekaligus (index, create, store, show, edit, update, destroy)
-Route::resource('categories', CategoryController::class);
+// Route Default Admin Dashboard (Contoh yang sudah Anda buat)
+Route::get('/dashboard', function () {
+    return view('admin.dashboard');
+})->name('dashboard');
 
-// Anda dapat menambahkan route admin lain di sini
+
+// =======================================================
+// Product Management (CRUD Resource)
+// =======================================================
+Route::resource('products', ProductController::class);

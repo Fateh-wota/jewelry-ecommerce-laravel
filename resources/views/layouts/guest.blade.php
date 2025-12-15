@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jewelry Store - E-commerce</title>
     
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="/css/styles.css"> 
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -17,7 +17,7 @@
             <i class="fas fa-gem"></i> JEWELRY STORE
         </div>
         <nav class="nav-links">
-            <a href="{{ url('/') }}">Home</a>
+            <a href="{{ route('home') }}">Home</a>
             <a href="#">Collections</a>
             <a href="#">About</a>
             <a href="#">Contact</a>
@@ -29,8 +29,9 @@
                 <i class="fas fa-shopping-cart"></i>
                 <span class="cart-badge">0</span>
             </div>
-            
-            <a href="{{ route('login') }}" class="sign-in-btn">Sign In</a>
+            <a href="{{ route('login') }}"> 
+                <button class="sign-in-btn">Sign In</button>
+            </a>
         </div>
     </header>
 
@@ -79,7 +80,7 @@
             <div class="product-card">
                 <img src="https://via.placeholder.com/300x200/F5F5F5/888888?text=Ring+Image" alt="Gold Diamond Ring">
                 <h4>Rings</h4>
-                <p class="title">Gold Diamond Ring</p>
+                <p class="title"><a href="{{ route('product.show', ['slug' => 'gold-diamond-ring']) }}">Gold Diamond Ring</a></p>
                 <div class="product-footer">
                     <span class="price">$2,499</span>
                     <button class="add-to-cart-btn">Add to Cart</button>
@@ -89,7 +90,7 @@
             <div class="product-card">
                 <img src="https://via.placeholder.com/300x200/F5F5F5/888888?text=Necklace+Image" alt="Pearl Necklace">
                 <h4>Necklaces</h4>
-                <p class="title">Pearl Necklace</p>
+                <p class="title"><a href="{{ route('product.show', ['slug' => 'pearl-necklace']) }}">Pearl Necklace</a></p>
                 <div class="product-footer">
                     <span class="price">$1,899</span>
                     <button class="add-to-cart-btn">Add to Cart</button>
@@ -99,7 +100,7 @@
             <div class="product-card">
                 <img src="https://via.placeholder.com/300x200/F5F5F5/888888?text=Bracelet+Image" alt="Diamond Bracelet">
                 <h4>Bracelets</h4>
-                <p class="title">Diamond Bracelet</p>
+                <p class="title"><a href="{{ route('product.show', ['slug' => 'diamond-bracelet']) }}">Diamond Bracelet</a></p>
                 <div class="product-footer">
                     <span class="price">$3,299</span>
                     <button class="add-to-cart-btn">Add to Cart</button>

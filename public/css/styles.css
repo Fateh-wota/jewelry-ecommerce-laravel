@@ -1,0 +1,243 @@
+/* Global Reset and Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    background-color: #fff;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+/* --- Navbar Styling --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #D81B60; /* Merah Muda Tua */
+}
+
+.nav-links a {
+    margin: 0 15px;
+    font-weight: 600;
+    color: #555;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-actions i {
+    font-size: 1.1em;
+    color: #555;
+    cursor: pointer;
+}
+
+.cart-icon {
+    position: relative;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: #D81B60;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.7em;
+    font-weight: 700;
+}
+
+.sign-in-btn {
+    background-color: #D81B60;
+    color: white;
+    padding: 8px 18px;
+}
+
+/* --- Hero Section Styling --- */
+.hero-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 50px;
+    background-color: #FFF0F5; /* Warna latar belakang merah muda sangat muda */
+}
+
+.hero-content {
+    max-width: 500px;
+    padding-right: 50px;
+}
+
+.hero-content h1 {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.hero-content p {
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-primary {
+    background-color: #D81B60;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid #D81B60;
+    color: #D81B60;
+}
+
+.hero-image-placeholder img {
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Section Global --- */
+section {
+    padding: 60px 50px;
+    text-align: center;
+}
+
+/* --- Category Section Styling --- */
+.category-section h2 {
+    margin-bottom: 40px;
+}
+
+.categories-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.category-card {
+    width: 200px;
+    padding: 30px 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+}
+
+.emoji-icon {
+    font-size: 3em;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* --- Featured Products Styling --- */
+.featured-products {
+    background-color: #f9f9f9;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto 30px auto;
+}
+
+.section-header h2 {
+    text-align: left;
+}
+
+.section-header a {
+    color: #D81B60;
+    font-weight: 600;
+}
+
+.products-grid {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.product-card {
+    width: 300px;
+    background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-card h4 {
+    color: #D81B60;
+    font-size: 0.9em;
+    margin: 15px 15px 5px 15px;
+}
+
+.product-card .title {
+    font-weight: 600;
+    margin: 0 15px 15px 15px;
+}
+
+.product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+
+.price {
+    font-weight: 700;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.add-to-cart-btn {
+    background-color: #D81B60;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
