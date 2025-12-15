@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    /**
+     * Tampilkan dashboard utama Admin.
+     */
     public function index()
     {
-        // Pastikan memanggil folder dan file yang benar: resources/views/admin/dashboard.blade.php
+        // Pastikan memanggil folder view yang benar: resources/views/admin/dashboard.blade.php
         return view('admin.dashboard'); 
     }
 }

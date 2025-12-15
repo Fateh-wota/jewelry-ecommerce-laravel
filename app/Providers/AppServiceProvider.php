@@ -1,37 +1,25 @@
 <?php
-    
+
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Route;
 
 class AppServiceProvider extends ServiceProvider
 {
-    // ... (kode lainnya)
-
-    public function boot(): void
+    /**
+     * Register any application services.
+     */
+    public function register(): void
     {
-        // ... (Jika sudah ada kode lain di sini, biarkan saja)
-
-        // =======================================================
-        // TAMBAHKAN KODE INI UNTUK MENGAKTIFKAN routes/admin.php
-        // =======================================================
-        $this->mapAdminRoutes();
-        // =======================================================
+        //
     }
 
     /**
-     * Define the "admin" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
+     * Bootstrap any application services.
      */
-    protected function mapAdminRoutes()
+    public function boot(): void
     {
-        Route::middleware(['web', 'auth', 'role:admin']) // Gunakan middleware yang sudah kita buat
-            ->prefix('admin') // URL dimulai dengan /admin
-            ->name('admin.') // Nama route dimulai dengan admin.
-            ->group(base_path('routes/admin.php'));
+        // Method ini sekarang kosong dari logic pemuatan route Admin/Seller
+        // karena logic tersebut sudah dipindahkan ke routes/web.php.
     }
 }
