@@ -4,17 +4,19 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // =======================================================
-// ROUTE UTAMA: / (GUEST DASHBOARD)
-// Selalu tampilkan halaman 'welcome' sebagai Dashboard Tamu.
+// 1. ROUTE UTAMA: / (GUEST DASHBOARD)
+// Memastikan halaman root selalu menampilkan view 'guest' (Toko Online).
+// TIDAK ADA cek auth() di sini, sehingga sesi admin/seller tidak memaksa redirect.
 // =======================================================
 Route::get('/', function () {
-    return view('welcome');
+    // Memanggil view yang berisi desain toko online (guest.blade.php)
+    return view('guest'); 
 })->name('guest.dashboard'); 
 
 
 // =======================================================
-// ROUTE /dashboard UNTUK REDIRECT BERDASARKAN ROLE (Setelah Login)
-// Ini menangani apa yang terjadi segera setelah login sukses.
+// 2. ROUTE /dashboard UNTUK REDIRECT BERDASARKAN ROLE (Setelah Login)
+// Ini adalah route yang dipanggil setelah otentikasi sukses.
 // =======================================================
 Route::get('/dashboard', function () {
     if (auth()->check()) {
@@ -29,8 +31,8 @@ Route::get('/dashboard', function () {
             return redirect()->route('seller.dashboard'); 
         }
         
-        // Default: Kembalikan ke welcome page
-        return view('welcome'); 
+        // Default: Jika role tidak dikenali (misalnya customer biasa), kembali ke view tamu
+        return view('guest'); 
     }
     
     // Jika entah bagaimana route ini diakses tanpa auth, kembalikan ke root
@@ -48,7 +50,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 // =======================================================
-// PEMUATAN ROUTE ADMIN
+// 3. PEMUATAN ROUTE ADMIN
 // =======================================================
 
 Route::middleware(['web', 'auth']) 

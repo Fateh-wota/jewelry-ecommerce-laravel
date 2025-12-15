@@ -1,0 +1,145 @@
+/* ======================================================= */
+/* TEMPLATE CSS DASAR UNTUK TAMPILAN GUEST DASHBOARD       */
+/* SILAKAN MODIFIKASI SEMUA STYLE DI BAWAH INI SESUAI DESAIN ANDA */
+/* ======================================================= */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f0f2f5;
+}
+
+/* --- HEADER --- */
+.main-header {
+    display: flex;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ff6600; /* Warna logo FILKOM */
+    margin-right: 20px;
+}
+
+.category-nav {
+    margin-right: 20px;
+}
+
+.category-nav .category-link {
+    text-decoration: none;
+    color: #333;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.search-bar-container {
+    flex-grow: 1;
+    max-width: 600px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+.auth-links {
+    margin-left: auto;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-left: 10px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.btn-login {
+    border: 1px solid #007bff;
+    color: #007bff;
+}
+
+.btn-register {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+
+/* --- KONTEN UTAMA (GRID) --- */
+.main-content-grid {
+    padding: 30px 40px;
+    display: grid;
+    /* Membuat kolom responsif */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+    gap: 20px;
+}
+
+.product-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    overflow: hidden;
+    padding: 15px;
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* --- DETAIL PRODUK --- */
+.product-image-placeholder {
+    height: 180px; /* Tinggi placeholder */
+    background-color: #f7f7f7;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Memastikan gambar mengisi ruang */
+}
+
+.product-name {
+    font-size: 1em;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.product-price {
+    color: #d0011b; /* Warna harga merah */
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product-rating {
+    font-size: 0.9em;
+    color: #ffc107; /* Warna bintang */
+    margin-bottom: 5px;
+}
+
+.sold-count {
+    color: #666;
+    margin-left: 8px;
+}
+
+.seller-info {
+    font-size: 0.9em;
+    color: green;
+    font-style: italic;
+}
