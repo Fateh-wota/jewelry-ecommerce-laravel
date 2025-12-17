@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,31 +13,40 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Panggil seeder-seeder yang Anda buat di sini
-        $this->call([
-            ProductSeeder::class, // Memanggil ProductSeeder
-        ]);
+        // 1. Kita matikan dulu ProductSeeder agar tidak error 'SET FOREIGN_KEY_CHECKS' di SQLite
+        // $this->call([
+        //     ProductSeeder::class, 
+        // ]);
 
-        // 2. Buat User Admin dan Seller default
-        
-        // Contoh User Admin (ID: 1)
+        // 2. Buat User Admin
         User::updateOrCreate(
-            ['email' => 'admin@example.com'],
+            ['email' => 'admin@gmail.com'],
             [
                 'name' => 'Admin Utama',
-                'password' => bcrypt('password'), // Password: password
+                'password' => Hash::make('12345678'), 
                 'role' => 'admin',
                 'email_verified_at' => now(),
             ]
         );
 
-        // Contoh User Seller (ID: 2)
+        // 3. Buat User Seller
         User::updateOrCreate(
             ['email' => 'seller@example.com'],
             [
-                'name' => 'Penjual Toko',
-                'password' => bcrypt('password'), // Password: password
+                'name' => 'Penjual Toko Jewelry',
+                'password' => Hash::make('12345678'),
                 'role' => 'seller',
+                'email_verified_at' => now(),
+            ]
+        );
+
+        // 4. Buat User Buyer
+        User::updateOrCreate(
+            ['email' => 'buyer@example.com'],
+            [
+                'name' => 'Budi Pembeli',
+                'password' => Hash::make('12345678'),
+                'role' => 'buyer',
                 'email_verified_at' => now(),
             ]
         );

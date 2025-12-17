@@ -44,7 +44,9 @@
             </div>
         </div>
         <div class="hero-image-placeholder">
-            <img src="https://via.placeholder.com/350x400/FCE4EC/888888?text=Jewelry+Model" alt="Jewelry Collection">
+            <img src="{{ asset('images/hero-jewelry.jpg') }}" 
+            class="img-fluid rounded-3 shadow" 
+            alt="Jewelry Collection">
         </div>
     </section>
 

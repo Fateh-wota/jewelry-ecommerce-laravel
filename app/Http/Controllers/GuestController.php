@@ -11,10 +11,8 @@ class GuestController extends Controller
      * Display the application's home screen.
      */
     public function index()
-    {
-        // Ambil hanya produk yang ditandai sebagai featured
-        $featuredProducts = Product::where('is_featured', true)->get();
-        return view('home', compact('featuredProducts'));
+    {    
+        return view('welcome'); 
     }
 
     /**

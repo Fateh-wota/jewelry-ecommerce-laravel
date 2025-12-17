@@ -11,7 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Mendaftarkan alias middleware agar bisa dipanggil di routes/web.php
+        $middleware->alias([
+            'checkRole' => \App\Http\Middleware\RoleManager::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

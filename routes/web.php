@@ -1,54 +1,43 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GuestController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Seller\SellerDashboardController; 
-use App\Http\Controllers\Buyer\BuyerDashboardController; 
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
 
-/* ---------------------------------- */
-/* --------- GUEST/HOME ROUTES -------- */
-/* ---------------------------------- */
-Route::get('/', [GuestController::class, 'index'])->name('home');
-
-// Rute Detail Produk (yang sudah kita perbaiki sebelumnya)
-Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show'); 
-
-
-/* ---------------------------------- */
-/* ------ AUTH (LOGIN/LOGOUT) ROUTES ----- */
-/* ---------------------------------- */
-
-// Login form hanya bisa diakses oleh tamu (guest)
-Route::middleware('guest')->group(function () {
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [LoginController::class, 'login']);
+// 1. Halaman Depan
+Route::get('/', function () {
+    return view('welcome');
 });
 
-// Logout
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+// 2. Dashboard User Biasa (Bawaan Breeze)
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-
-/* ---------------------------------- */
-/* --------- DASHBOARD ROUTES --------- */
-/* ---------------------------------- */
-Route::middleware(['auth'])->group(function () {
+// 3. AREA ADMIN (Middleware Auth + CheckRole Admin)
+Route::middleware(['auth', 'checkRole:admin'])->group(function () {
+    // Dashboard Admin
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     
-    // 1. ADMIN DASHBOARD
-    Route::prefix('admin')->name('admin.')->group(function () {
-        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-    });
-
-    // 2. SELLER DASHBOARD
-    Route::prefix('seller')->name('seller.')->group(function () {
-        Route::get('/dashboard', [SellerDashboardController::class, 'index'])->name('dashboard');
-    });
-
-    // 3. BUYER DASHBOARD
-    Route::prefix('user')->name('buyer.')->group(function () {
-        Route::get('/dashboard', [BuyerDashboardController::class, 'index'])->name('dashboard');
-    });
+    // Manajemen Buyer
+    Route::get('/admin/buyers', [AdminDashboardController::class, 'buyers'])->name('admin.buyers');
+    
+    // Action Jadikan Seller
+    Route::post('/admin/make-seller/{id}', [AdminDashboardController::class, 'makeSeller'])->name('admin.makeSeller');
 });
+
+// 4. ROUTE PROFILE (Ini yang bikin error tadi kalau nggak ada)
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// 5. Route Auth (Login, Register, Logout, dll)
+require __DIR__.'/auth.php';

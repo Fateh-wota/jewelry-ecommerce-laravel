@@ -1,113 +1,30 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jewelry Store - E-commerce</title>
-    
-    <link rel="stylesheet" href="/css/styles.css"> 
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <header class="navbar">
-        <div class="logo">
-            <i class="fas fa-gem"></i> JEWELRY STORE
-        </div>
-        <nav class="nav-links">
-            <a href="{{ route('home') }}">Home</a>
-            <a href="#">Collections</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-        </nav>
-        <div class="nav-actions">
-            <i class="fas fa-search"></i>
-            <i class="fas fa-heart"></i>
-            <div class="cart-icon">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-badge">0</span>
-            </div>
-            <a href="{{ route('login') }}"> 
-                <button class="sign-in-btn">Sign In</button>
-            </a>
-        </div>
-    </header>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1>Discover Timeless Elegance</h1>
-            <p>Explore our exquisite collection of fine jewelry, crafted with precision and passion for those who appreciate luxury.</p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary">Shop Now</button>
-                <button class="btn btn-secondary">View Collections</button>
-            </div>
-        </div>
-        <div class="hero-image-placeholder">
-            <img src="https://via.placeholder.com/350x400/FCE4EC/888888?text=Jewelry+Model" alt="Jewelry Collection">
-        </div>
-    </section>
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <section class="category-section">
-        <h2>Shop by Category</h2>
-        <div class="categories-grid">
-            <div class="category-card" style="background-color: #fce4ec;">
-                <span class="emoji-icon">💍</span>
-                <h3>Rings</h3>
-            </div>
-            <div class="category-card" style="background-color: #fce4ec;">
-                <span class="emoji-icon">📿</span>
-                <h3>Necklaces</h3>
-            </div>
-            <div class="category-card" style="background-color: #fce4ec;">
-                <span class="emoji-icon">⚜</span>
-                <h3>Bracelets</h3>
-            </div>
-            <div class="category-card" style="background-color: #fce4ec;">
-                <span class="emoji-icon">💎</span>
-                <h3>Earrings</h3>
-            </div>
-        </div>
-    </section>
-
-    <section class="featured-products">
-        <div class="section-header">
-            <h2>Featured Collection</h2>
-            <a href="#">View All →</a>
-        </div>
-        <div class="products-grid">
-            <div class="product-card">
-                <img src="https://via.placeholder.com/300x200/F5F5F5/888888?text=Ring+Image" alt="Gold Diamond Ring">
-                <h4>Rings</h4>
-                <p class="title"><a href="{{ route('product.show', ['slug' => 'gold-diamond-ring']) }}">Gold Diamond Ring</a></p>
-                <div class="product-footer">
-                    <span class="price">$2,499</span>
-                    <button class="add-to-cart-btn">Add to Cart</button>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <img src="https://via.placeholder.com/300x200/F5F5F5/888888?text=Necklace+Image" alt="Pearl Necklace">
-                <h4>Necklaces</h4>
-                <p class="title"><a href="{{ route('product.show', ['slug' => 'pearl-necklace']) }}">Pearl Necklace</a></p>
-                <div class="product-footer">
-                    <span class="price">$1,899</span>
-                    <button class="add-to-cart-btn">Add to Cart</button>
-                </div>
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
+    <body class="font-sans text-gray-900 antialiased">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+            <div>
+                <a href="/">
+                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                </a>
             </div>
 
-            <div class="product-card">
-                <img src="https://via.placeholder.com/300x200/F5F5F5/888888?text=Bracelet+Image" alt="Diamond Bracelet">
-                <h4>Bracelets</h4>
-                <p class="title"><a href="{{ route('product.show', ['slug' => 'diamond-bracelet']) }}">Diamond Bracelet</a></p>
-                <div class="product-footer">
-                    <span class="price">$3,299</span>
-                    <button class="add-to-cart-btn">Add to Cart</button>
-                </div>
+            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+                {{ $slot }}
             </div>
         </div>
-    </section>
-
-</body>
+    </body>
 </html>
