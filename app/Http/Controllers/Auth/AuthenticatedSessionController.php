@@ -27,12 +27,16 @@ class AuthenticatedSessionController extends Controller
     $request->authenticate();
     $request->session()->regenerate();
 
-    // Logika pengalihan: Jika role-nya admin, lempar ke dashboard pink
+    // CEK ROLE DISINI
     if ($request->user()->role === 'admin') {
         return redirect()->route('admin.dashboard');
+    } 
+    
+    if ($request->user()->role === 'seller') {
+        return redirect()->route('seller.dashboard');
     }
 
-    // Jika bukan admin (buyer/seller), ke dashboard standar
+    // Default untuk buyer
     return redirect()->intended(route('dashboard'));
 }
 
