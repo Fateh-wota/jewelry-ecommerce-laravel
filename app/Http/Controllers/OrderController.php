@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    // Menampilkan halaman detail produk dan form order
+    // Menampilkan halaman detail produk
     public function show(Product $product)
     {
         return view('product-detail', compact('product'));
     }
 
-    // Menyimpan pesanan ke database
+    // Proses simpan order
     public function store(Request $request, Product $product)
     {
         $request->validate([
@@ -24,10 +24,11 @@ class OrderController extends Controller
             'phone' => 'required|string',
         ]);
 
+        // 1. Buat data Order
         Order::create([
             'user_id' => Auth::id(),
             'product_id' => $product->id,
-            'seller_id' => $product->user_id, // Mengambil ID seller dari pemilik produk
+            'seller_id' => $product->user_id, // Ambil ID seller pemilik produk
             'quantity' => $request->quantity,
             'total_price' => $product->price * $request->quantity,
             'status' => 'pending',
@@ -36,9 +37,10 @@ class OrderController extends Controller
             'notes' => $request->notes,
         ]);
 
-        // Kurangi stok produk
+        // 2. Kurangi stok produk secara otomatis
         $product->decrement('stock', $request->quantity);
 
+        // 3. Lempar balik ke home dengan pesan sukses
         return redirect()->route('home')->with('success', 'Pesanan berhasil dibuat! Seller akan segera memprosesnya.');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -12,8 +13,16 @@ class SellerDashboardController extends Controller
 {
     public function index()
     {
+        // Ambil produk milik seller
         $products = Product::where('user_id', Auth::id())->latest()->get();
-        return view('seller.dashboard', compact('products'));
+
+        // AMBIL PESANAN yang masuk ke seller ini (Eager Loading user & product biar gak lambat)
+        $orders = Order::where('seller_id', Auth::id())
+            ->with(['user', 'product'])
+            ->latest()
+            ->get();
+
+        return view('seller.dashboard', compact('products', 'orders'));
     }
 
     public function create()
@@ -38,13 +47,13 @@ class SellerDashboardController extends Controller
         }
 
         Product::create([
-            'user_id'     => Auth::id(),
-            'name'        => $request->name,
+            'user_id' => Auth::id(),
+            'name' => $request->name,
             'description' => $request->description,
-            'price'       => $request->price,
-            'stock'       => $request->stock,
-            'condition'   => $request->condition, // Simpan kondisi
-            'image'       => $imagePath,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'condition' => $request->condition, // Simpan kondisi
+            'image' => $imagePath,
         ]);
 
         return redirect()->route('seller.dashboard')->with('success', 'Produk berhasil ditambahkan!');
