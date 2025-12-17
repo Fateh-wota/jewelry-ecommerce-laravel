@@ -14,12 +14,13 @@ class Product extends Model
      * Kolom yang boleh diisi (WAJIB ADA user_id DI SINI)
      */
     protected $fillable = [
-        'user_id', 
+        'user_id',
         'name',
         'description',
         'price',
         'stock',
         'image',
+        'condition',
     ];
 
     /**

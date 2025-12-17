@@ -28,6 +28,7 @@ class SellerDashboardController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
+            'condition' => 'required|string', // Validasi kondisi baru
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
@@ -42,6 +43,7 @@ class SellerDashboardController extends Controller
             'description' => $request->description,
             'price'       => $request->price,
             'stock'       => $request->stock,
+            'condition'   => $request->condition, // Simpan kondisi
             'image'       => $imagePath,
         ]);
 
@@ -63,6 +65,7 @@ class SellerDashboardController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
+            'condition' => 'required|string', // Validasi kondisi baru
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
@@ -78,6 +81,7 @@ class SellerDashboardController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'stock' => $request->stock,
+            'condition' => $request->condition, // Update kondisi
             'image' => $product->image,
         ]);
 
