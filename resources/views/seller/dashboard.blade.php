@@ -11,7 +11,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        /* CSS RESET & SCOPE BIAR GAK BERANTAKAN */
         *, ::after, ::before { box-sizing: border-box !important; }
         body { font-family: 'Poppins', sans-serif !important; background-color: #f4f7f6 !important; margin: 0 !important; }
         
@@ -32,7 +31,7 @@
         }
 
         .sidebar .nav-link:hover, .sidebar .nav-link.active { 
-            background: #d63384 !important; /* PINK MAGENTA */
+            background: #d63384 !important; 
             color: white !important; 
         }
 
@@ -48,6 +47,14 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.05) !important; 
             background: white !important;
             padding: 25px !important;
+        }
+
+        .product-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #eee;
         }
 
         .text-magenta { color: #d63384 !important; }
@@ -100,23 +107,42 @@
                     <table class="table table-hover align-middle">
                         <thead class="table-light">
                             <tr>
+                                <th>Foto</th>
                                 <th>Nama Produk</th>
                                 <th>Harga</th>
                                 <th>Stok</th>
-                                <th>Tanggal Input</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($products as $product)
                             <tr>
+                                <td>
+                                    @if($product->image)
+                                        <img src="{{ asset('storage/' . $product->image) }}" class="product-img" alt="Product">
+                                    @else
+                                        <div class="product-img bg-light d-flex align-items-center justify-content-center">
+                                            <i class="fas fa-image text-muted"></i>
+                                        </div>
+                                    @endif
+                                </td>
                                 <td class="fw-bold">{{ $product->name }}</td>
                                 <td class="text-magenta fw-medium">Rp {{ number_format($product->price, 0, ',', '.') }}</td>
                                 <td><span class="badge bg-secondary">{{ $product->stock }} Pcs</span></td>
-                                <td class="text-muted">{{ $product->created_at->format('d M Y') }}</td>
                                 <td class="text-center">
-                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="{{ route('seller.product.edit', $product->id) }}" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+
+                                        <form action="{{ route('seller.product.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                             @empty

@@ -28,12 +28,22 @@ Route::middleware(['auth', 'checkRole:admin'])->group(function () {
 
 // --- AREA SELLER ---
 Route::middleware(['auth', 'checkRole:seller'])->group(function () {
+    // Dashboard & List Produk
     Route::get('/seller/dashboard', [SellerDashboardController::class, 'index'])->name('seller.dashboard');
+    
+    // Create (Tambah)
     Route::get('/seller/add-product', [SellerDashboardController::class, 'create'])->name('seller.product.create');
     Route::post('/seller/add-product', [SellerDashboardController::class, 'store'])->name('seller.product.store');
+    
+    // Edit & Update
+    Route::get('/seller/edit-product/{id}', [SellerDashboardController::class, 'edit'])->name('seller.product.edit');
+    Route::put('/seller/edit-product/{id}', [SellerDashboardController::class, 'update'])->name('seller.product.update');
+
+    // Delete (Hapus)
+    Route::delete('/seller/delete-product/{id}', [SellerDashboardController::class, 'destroy'])->name('seller.product.destroy');
 });
 
-// --- AREA PROFILE ---
+// --- AREA PROFILE (BAWAAN LARAVEL BREEZE) ---
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
