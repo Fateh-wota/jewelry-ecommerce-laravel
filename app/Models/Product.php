@@ -4,24 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
-     * TENTUKAN KOLOM MANA YANG BOLEH DIISI SECARA MASAL DARI FORM
+     * Kolom yang boleh diisi (WAJIB ADA user_id DI SINI)
      */
     protected $fillable = [
-        'name', 
-        'description', 
-        'price', 
-        'image', 
-        'category', 
-        'is_featured', 
+        'user_id', 
+        'name',
+        'description',
+        'price',
+        'stock',
+        'image',
     ];
 
-    // Jika Anda ingin mengizinkan semua kolom untuk diisi secara Mass Assignment (TIDAK disarankan untuk Model penting seperti User):
-    // protected $guarded = []; 
+    /**
+     * Relasi ke User (Penjual).
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
